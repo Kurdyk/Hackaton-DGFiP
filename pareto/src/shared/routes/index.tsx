@@ -9,6 +9,7 @@ const AllRoutes: React.FC = () => {
         <Box id="routeBox">
             <Routes>
                <Route path="/" element={<WelcomePage />} />
+               <Route path="/simulation" element={<WelcomePage />} />
             </Routes>
         </Box>
     )

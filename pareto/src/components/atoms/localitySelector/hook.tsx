@@ -1,39 +1,44 @@
 import { Locality } from "shared/type";
 import { LocalityType } from "./type";
+import { regions, departements, communes } from "./const";
 
 export const useData = (localityType : LocalityType) => {
 
-    const find_file = (localityType : LocalityType) => {
+    const find_data = (localityType : LocalityType): Array<Locality> => {
         switch (localityType) {
-           case LocalityType.REGION:
-                return "data/locality/region.csv"
+            case LocalityType.REGION:
+                return JSON.parse(JSON.stringify(regions));
             case LocalityType.DEPARTEMENT:
-                return "data/locality/department.csv"
+                return JSON.parse(JSON.stringify(departements));
             case LocalityType.COMMUNE:
-                return "data/locality/commune.csv"
+                return JSON.parse(JSON.stringify(communes));
         }
     }
 
-    const read_json_file_to_array = (file : string) : Array<Locality> => {
-        fetch(file).then(response => response.text())
-                    .then(fileContent => {
-                        // Access the file content as a string
-                        console.log(fileContent);
-
-                        // If you want to parse the content as JSON
-                        const parsedData = JSON.parse(fileContent);
-                        console.log(parsedData[0].name);  // Output: Charente
-                        console.log(parsedData[0].code);  // Output: 16
-                    })
-                    .catch(error => console.error('Error fetching file:', error));
-        return [];
+    const cast_to_string = (data: Array<Locality>): string[] => {
+        let result: string[] = [];
+        data.forEach((locality: Locality) => {
+            // push name and code if it exists
+            result.push(locality.name); 
+        });
+        console.log(result)
+        return result;
     }
 
-
-    const find_data = () => {
-        return read_json_file_to_array(find_file(localityType));
+    const label = (localityType : LocalityType): string => {
+        switch (localityType) {
+            case LocalityType.REGION:
+                return "Région";
+            case LocalityType.DEPARTEMENT:
+                return "Département";
+            case LocalityType.COMMUNE:
+                return "Commune";
+        }
     }
 
-    return find_data()
+    return {
+        data: cast_to_string(find_data(localityType)),
+        label: label(localityType)
+    };
 }
      
