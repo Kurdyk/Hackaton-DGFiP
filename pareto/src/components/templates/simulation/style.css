@@ -1,0 +1,32 @@
+#SimulationPageWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#SimulationWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+#SimulationMapWrapper {
+    height: 80%;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#ActionButtonsWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 10%;
+    background-color: #f2f2f2;
+    border-radius: 10px; /* Add rounded edges */
+}

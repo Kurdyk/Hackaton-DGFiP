@@ -4,12 +4,12 @@ import { Commune } from 'shared/type'
 import SliderList from '../sliderList'
 import { CityInformationProps } from './type'
 
-const CityInformation: React.FC<CityInformationProps> = ({commune}) => {
+const CityInformation: React.FC<CityInformationProps> = ({commune, id}) => {
 
     // TODO complete this component with the sliderList component
 
     return (
-        <Box className="CityWrapper">
+        <Box className="CityWrapper" id={id}>
             <Box className="CityInformationWrapper">
                 <Typography variant="h4" className="CityInformationName">{commune.name}</Typography>
                 <Typography variant="h6" className="CityInformationCode">{commune.code}</Typography>

@@ -4,7 +4,7 @@ import { Map, GeoJson, GeoJsonFeature } from "pigeon-maps";
 import { useData } from "./hook";
 import { SimulationMapProps } from "./type";
 
-const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2}) => {
+const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id}) => {
 
     const {geoJson1, geoJson2, center, ready} = useData(commune1, commune2);
 
@@ -31,7 +31,7 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2}) => {
     };
 
     return (       
-        <Map boxClassname="SimulationMap" height={1000} width={500} defaultCenter={[center[1], center[0]]} defaultZoom={13}>
+        <Map boxClassname="SimulationMap" defaultCenter={[center[1], center[0]]} defaultZoom={13} mouseEvents={false} touchEvents={false}>
             <GeoJson
                 svgAttributes={{
                     fill: "#ccffff",
