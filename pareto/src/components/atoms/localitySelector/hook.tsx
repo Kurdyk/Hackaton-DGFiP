@@ -15,15 +15,18 @@ export const useData = (localityType : LocalityType) => {
     }
 
     const read_json_file_to_array = (file : string) : Array<Locality> => {
-        const fs = require('fs')
-        const data = fs.readFileSync(file, 'utf8')
-        const lines = data.split(/\r?\n/)
-        const array = []
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].split(",")
-            array.push(line)
-        }
-        return array
+        fetch(file).then(response => response.text())
+                    .then(fileContent => {
+                        // Access the file content as a string
+                        console.log(fileContent);
+
+                        // If you want to parse the content as JSON
+                        const parsedData = JSON.parse(fileContent);
+                        console.log(parsedData[0].name);  // Output: Charente
+                        console.log(parsedData[0].code);  // Output: 16
+                    })
+                    .catch(error => console.error('Error fetching file:', error));
+        return [];
     }
 
 

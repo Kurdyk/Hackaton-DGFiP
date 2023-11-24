@@ -1,17 +1,12 @@
 import React from 'react'
-import { MapContainer, TileLayer, MapContainerProps, useMap } from 'react-leaflet'
+import { Map, Marker } from "pigeon-maps"
 
 const AccueilMapComponent: React.FC = () => {
-
-
-    const position = [51.505, -0.09]
   
     return (
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{height: 400, width: 400}}>
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-        </MapContainer>
+    <Map height={300} defaultCenter={[51.505, -0.09]} defaultZoom={11}>
+        <Marker width={50} anchor={[51.505, -0.09]} />
+    </Map>
     )
 }
 

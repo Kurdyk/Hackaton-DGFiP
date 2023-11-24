@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import WelcomeBoxComponent from 'components/molecules/welcomeBox';
+import { Box, TextField } from '@mui/material'
+import AccueilMapComponent from 'components/atoms/map';
 
-const WelcomeBoxComponent: React.FC = () => {
+const WelcomePage: React.FC = () => {
 
     return (
-        null
+        <Box>
+            <WelcomeBoxComponent />
+            <Box id="AccueilMapWrapper">
+                <AccueilMapComponent />
+            </Box>
+        </Box>
     )
 }
 
-export default WelcomeBoxComponent;
+export default WelcomePage;
