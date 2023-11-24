@@ -4,14 +4,15 @@ import { SliderInfo, SliderListProps } from "./type";
 
 export const useData = (sliderList : SliderInfo[]) => {
 
-    const leviers = sliderList.map(({label, value, min, max, step}) => {
-        
-        const [sliderValue, setSliderValue] = useState<number>(value);
 
+    
+
+    const leviers = sliderList.map(({label, value, setValue, min, max, step}, index) => {
+        
         return {
             label: label,
-            value: sliderValue,
-            setValue: setSliderValue,
+            value: value,
+            setValue: setValue,
             min: min,
             max: max,
             step: step

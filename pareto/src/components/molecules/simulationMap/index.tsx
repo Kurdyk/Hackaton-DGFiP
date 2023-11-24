@@ -6,20 +6,52 @@ import { SimulationMapProps } from "./type";
 
 const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2}) => {
 
-    const {geoJson1, geoJson2, center} = useData(commune1, commune2);
+    const {geoJson1, geoJson2, center, ready} = useData(commune1, commune2);
+
+    console.log(center, ready);
+
+    if (!ready) return (<></>);
+
+
+    // cast as GeoJsonFeature
+    const geoJson1Feature = {
+        type: "Feature",
+        geometry : { 
+            type: "Polygon",
+            coordinates: geoJson1.contour.coordinates
+        },
+    };
+
+    const geoJson2Feature = {
+        type: "Feature",
+        geometry : { 
+            type: "Polygon",
+            coordinates: geoJson2.contour.coordinates
+        },
+    };
 
     return (       
-        <Map boxClassname="SimulationMap" height={300} defaultCenter={center} defaultZoom={4}>
+        <Map boxClassname="SimulationMap" height={1000} defaultCenter={[center[1], center[0]]} defaultZoom={13}>
             <GeoJson
                 svgAttributes={{
-                    fill: "#d4e6ec99",
+                    fill: "#ccffff",
                     strokeWidth: "1",
-                    stroke: "white",
+                    opacity: "0.5",
+                    stroke: "blue",
                     r: "20",
             }}>
-                <GeoJsonFeature feature={geoJson1} />
-                <GeoJsonFeature feature={geoJson2} />
+                <GeoJsonFeature feature={geoJson1Feature} />
             </GeoJson>
+            <GeoJson svgAttributes={{
+                fill: "#ffcccc",
+                strokeWidth: "1",
+                opacity: "0.5",
+                stroke: "red",
+                r: "20",
+                }}>
+                <GeoJsonFeature feature={geoJson2Feature} />
+            </GeoJson>
+                
         </Map>
     )
 }
