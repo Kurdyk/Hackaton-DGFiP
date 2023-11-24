@@ -5,8 +5,8 @@ import AccueilMapComponent from 'components/atoms/map';
 const WelcomePage: React.FC = () => {
 
     return (
-        <Box>
-            <WelcomeBoxComponent />
+        <Box id="WelcomePageWrapper">
+            <WelcomeBoxComponent id="WelcomeBox" />
             <Box id="AccueilMapWrapper">
                 <AccueilMapComponent />
             </Box>

@@ -31,7 +31,7 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2}) => {
     };
 
     return (       
-        <Map boxClassname="SimulationMap" height={1000} defaultCenter={[center[1], center[0]]} defaultZoom={13}>
+        <Map boxClassname="SimulationMap" height={1000} width={500} defaultCenter={[center[1], center[0]]} defaultZoom={13}>
             <GeoJson
                 svgAttributes={{
                     fill: "#ccffff",

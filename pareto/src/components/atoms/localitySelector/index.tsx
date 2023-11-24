@@ -13,7 +13,7 @@ const LocalitySelectorComponent: React.FC<LocalitySelectorProps> = ({type, visib
     }
 
     return (
-        <Box id={id}>
+        <Box id={id} className="LocalitySelector">
             <Autocomplete 
                 value={value}
                 onChange={(event: any, newValue: string | null) => {

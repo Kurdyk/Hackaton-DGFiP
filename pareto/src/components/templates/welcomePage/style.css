@@ -1,0 +1,27 @@
+#WelcomePageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#WelcomeBox {
+    z-index: 1;
+    position: fixed;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px; /* Add rounded edges */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#AccueilMapWrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #eee;
+}

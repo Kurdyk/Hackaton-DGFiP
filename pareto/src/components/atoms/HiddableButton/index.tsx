@@ -10,7 +10,7 @@ const HiddableButton: React.FC<HiddableButtonProps> = ({onClick, isHidden, id, t
 
     return (
         <Box id={id}>
-            <Button onClick={onClick}>{text}</Button>
+            <Button className="Button" onClick={onClick}>{text}</Button>
         </Box>
     )
 }

@@ -22,7 +22,7 @@ const SliderList : React.FC<SliderListProps> = ({sliders}) => {
                     />
                 )
             }
-        )};
+        )}
         </Box>
     )
 }
