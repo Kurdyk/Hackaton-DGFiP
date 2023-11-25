@@ -55,6 +55,8 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
 
         if (!commune1 || !commune2 || !activity) return;
 
+        console.log(commune1, commune2, activity, exoneration1, exoneration2, reduction1, reduction2)
+
         const url = "http://localhost:4444/solve";
         const request = {
             method: 'POST',

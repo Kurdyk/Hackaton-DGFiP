@@ -8,11 +8,11 @@ const ControlledSlider : React.FC<ControlledSliderProps> = ({label, value, setVa
             getAriaValueText={(value) => `${value}`}
             valueLabelDisplay="auto"
             aria-label={label}
-            defaultValue={value} 
+            value={value} 
             step={step} 
             min={min}
             max={max}
-            onChange={(_, newValue) => setValue(newValue as number)} 
+            onChangeCommitted={(_, newValue) => {setValue(newValue as number); console.log(value)}} 
         />
     )
 }

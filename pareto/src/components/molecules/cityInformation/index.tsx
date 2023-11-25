@@ -1,6 +1,5 @@
-import { Box, Slider, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
-import { Commune } from 'shared/type'
 import SliderList from '../sliderList'
 import { CityInformationProps } from './type'
 
