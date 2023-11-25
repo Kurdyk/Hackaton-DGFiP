@@ -76,7 +76,8 @@ def solve():
     
     activity = problem['activity']
 
-    L1,L2 = utils.departs_successifs(activity,Li1,Li2,b1,b2,t1,t2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5)
+    #L1,L2 = utils.departs_successifs(activity,Li1,Li2,b1,b2,t1,t2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5)
+    L1,L2 = utils.departs_successifs_CA(activity,Li1,Li2,t1,t2,DFVille1,DFVille2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5)
 
     n1i = utils.nb_ent_type(Li1,activity)
     n2i = utils.nb_ent_type(Li2,activity)
