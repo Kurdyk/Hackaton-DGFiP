@@ -42,17 +42,30 @@ def solve():
         "moving2to1" : int,
     }
     """
+    problem = request.get_json()
+    print(problem)
+
     DFVille1 = utils.DFVille1
     DFVille2 = utils.DFVille2
     
 
-    Liste_Activites = utils.Activites_communes(DFVille1,DFVille2)
+    # Liste_Activites = utils.Activites_communes(DFVille1,DFVille2)
+    Liste_Activites = ['4673A','9602A','5610C','6190Z','4321A','7022Z','6420Z','4399C','86901','4789Z','4520A','4511Z','4799A','7010Z','99990']
     Li1, Li2 = utils.repartition_ent(DFVille1,DFVille2)
 
-    b1,b2 = utils.bases_initiales(Liste_Activites, DFVille1, DFVille2)
+    index = -1
+    for i in range(len(Liste_Activites)):
+        if Liste_Activites[i] == problem['activity']:
+            index = i
+            break
 
-    b1 = (b1-problem["reduction1"])(1-problem['exoneration1'])
-    b2 = (b2-problem["reduction2"])(1-problem['exoneration2'])
+    if index == -1:
+        return jsonify("Invalid activity"), 400
+
+    [b1,b2] = utils.bases_initiales(Liste_Activites, DFVille1, DFVille2)[index]
+
+    b1 = (b1-problem["reduction1"]) * (1-problem["exoneration1"])
+    b2 = (b2-problem["reduction2"]) * (1-problem["exoneration2"])
 
 
     t1 = int(DFVille1['TXCNU0'].unique()[0])
@@ -68,19 +81,14 @@ def solve():
     n1 = utils.nb_ent_type(L1,activity)
     n2 = utils.nb_ent_type(L2,activity)
 
+    solution = {
+        "moving1to2" : 0,
+        "moving2to1" : 0,
+    }
+
     solution["moving1to2"] = max(n1i-n1,0)
     solution["moving2to1"] = max(n2i-n2,0)
 
-
-    json = request.get_json()
-    try:
-        problem = utils.parse_json(json)
-    except ValueError:
-        return jsonify("Bad request"), 400
-    try:
-        solution = utils.solve(problem)
-    except ValueError:
-        return jsonify("Invalid problem"), 400
     return make_response(jsonify(solution), 200)
 
 @app.route("/evaluate", methods=["POST"])
