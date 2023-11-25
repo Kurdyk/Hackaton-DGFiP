@@ -236,7 +236,7 @@ def base_brute_CA(ent,DFVille,ville1,ville2, DFA1f):
     #print(rev)
     try:
         code = dict_rev[rev]
-    except TypeError:
+    except TypeError & KeyError:
         code = 'MBTP01'
     b1 = DFA1f[DFA1f['CTCN']==ville1][code].unique()[0]
     b2 = DFA1f[DFA1f['CTCN']==ville2][code].unique()[0]
