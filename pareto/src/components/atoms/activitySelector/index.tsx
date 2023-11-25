@@ -1,7 +1,7 @@
 import React from 'react'
 import { ActivitySelectorProps } from './type'
 import { Autocomplete } from '@mui/material';
-import { ACTIVITY_LIST } from './const';
+import { ACTIVITY_LIST_MAP } from './const';
 
 const ActivitySelector : React.FC<ActivitySelectorProps> = ({activity, setActivity}) => {
 
@@ -9,9 +9,10 @@ const ActivitySelector : React.FC<ActivitySelectorProps> = ({activity, setActivi
         <Autocomplete 
             disablePortal
             id="combo-box-demo"
-            options={ACTIVITY_LIST}
-            onChange={(_, newValue) => setActivity(newValue as string)}
             renderInput={(params) => <div ref={params.InputProps.ref}><input type="text" {...params.inputProps} /></div>}
+            renderOption={(props, option) => <li {...props}>{option.label}</li>}
+            options={Object.entries(ACTIVITY_LIST_MAP).map(([key, value]) => ({ key, label: `${key} : ${value}` }))}
+            onChange={(_, newValue) => setActivity(newValue?.key as string)}
         />
     )
 }
