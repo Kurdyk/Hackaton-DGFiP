@@ -167,8 +167,8 @@ def optimizea():
     b1opt,b2opt = utils.bases_optimales(activity,b1,t1,b2,t2,Li1,Li2,prop = 0.5,eps = 0.15)
 
 
-    solution["b1opt"] = max(n1i-n1,0)
-    solution["b2opt"] = max(n2i-n2,0)
+    solution["b1opt"] = b1opt
+    solution["b2opt"] = b2opt
 
     return make_response(jsonify(solution), 200)
 
