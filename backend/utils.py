@@ -15,10 +15,10 @@ n_ville_2 = '166'
 
 DFPOP = pd.DataFrame(dataPop.json()) [['nom','population']]
 
-DFP2 = pd.read_csv('../../160_CHARENTE_ART-P2.csv',header = 1, delimiter=';')
-DFP1 = pd.read_csv('../../160_CHARENTE_ART-P1.csv',header = 1, delimiter=';',encoding='latin-1')
-DFC1 = pd.read_csv('../../160_CHARENTE_ART-C1.csv',header = 1, delimiter=';',encoding='latin-1')
-DFA1 = pd.read_csv('../../160_CHARENTE_ART-A1.csv',header = 1, delimiter=',',encoding='latin-1')
+DFP2 = pd.read_csv('../data/160_CHARENTE_ART-P2.csv',header = 1, delimiter=';')
+DFP1 = pd.read_csv('../data/160_CHARENTE_ART-P1.csv',header = 1, delimiter=';',encoding='latin-1')
+DFC1 = pd.read_csv('../data/160_CHARENTE_ART-C1.csv',header = 1, delimiter=';',encoding='latin-1')
+DFA1 = pd.read_csv('../data/160_CHARENTE_ART-A1.csv',header = 1, delimiter=',',encoding='latin-1')
 
 filtered_columns = [col for col in DFREI.columns if 'CFE' in col]
 filtered_columns.append('Libellé commune')
