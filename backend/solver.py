@@ -194,16 +194,46 @@ def pareto():
         "dict_res" : dict,
     }
     """
+    activity = problem['activity']
+    DFVille1 = utils.DFVille1
+    DFVille2 = utils.DFVille2
     
+
+    # Liste_Activites = utils.Activites_communes(DFVille1,DFVille2)
+    Liste_Activites = ['4673A','9602A','5610C','6190Z','4321A','7022Z','6420Z','4399C','86901','4789Z','4520A','4511Z','4799A','7010Z','99990']
+    Li1, Li2 = utils.repartition_ent(DFVille1,DFVille2)
+
+    index = -1
+    for i in range(len(Liste_Activites)):
+        if Liste_Activites[i] == problem['activity']:
+            index = i
+            break
+
+    if index == -1:
+        return jsonify("Invalid activity"), 400
+
+    [b1,b2] = utils.bases_initiales(Liste_Activites, DFVille1, DFVille2)[index]
+    
+    
+    solution = {
+        "b1opt" : 0,
+        "b2opt" : 0,
+    }
+
+    t1 = int(DFVille1['TXCNU0'].unique()[0])
+    t2 = int(DFVille2['TXCNU0'].unique()[0])
+    
+    dict_result = utils.equilibre_pareto(activity, Li1, Li2, t1, t2)
     json = request.get_json()
     try:
         problem = utils.parse_json(json)
     except ValueError:
         return jsonify("Bad request"), 400
-    try:
-        pareto = pareto.find_pareto(problem)
-    except ValueError:
-        return jsonify("Invalid problem"), 400
+    solution = {
+        "dict_res" : {},
+    }
+    solution[dict_res] = dict_result
+    
     return make_response(jsonify(pareto), 200)
 
 
