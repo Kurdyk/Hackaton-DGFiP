@@ -234,7 +234,7 @@ def pareto():
     }
     solution[dict_res] = dict_result
     
-    return make_response(jsonify(pareto), 200)
+    return make_response(jsonify(solution), 200)
 
 
 if __name__ == "__main__":
