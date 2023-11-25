@@ -36,5 +36,5 @@ iopt = 0
 for i in range(len(T)): 
     if T[i][0] + T[i][1] > opt:
         iopt = i
-print(T[iopt])
-                
+
+Optimum : T[iopt]
