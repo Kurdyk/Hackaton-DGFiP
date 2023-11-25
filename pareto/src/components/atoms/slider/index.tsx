@@ -4,7 +4,10 @@ import { Slider } from '@mui/material'
 
 const ControlledSlider : React.FC<ControlledSliderProps> = ({label, value, setValue, min, max, step}) => {
     return (
-        <Slider aria-label={label}
+        <Slider 
+            getAriaValueText={(value) => `${value}`}
+            valueLabelDisplay="auto"
+            aria-label={label}
             defaultValue={value} 
             step={step} 
             min={min}

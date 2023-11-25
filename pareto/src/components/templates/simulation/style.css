@@ -16,7 +16,7 @@
 
 #SimulationMapWrapper {
     height: 80%;
-    width: 100%;
+    width: 65%;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -29,4 +29,12 @@
     height: 10%;
     background-color: #f2f2f2;
     border-radius: 10px; /* Add rounded edges */
+}
+
+#activitySelection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
