@@ -78,7 +78,7 @@ def solve():
 
     #L1,L2 = utils.departs_successifs(activity,Li1,Li2,b1,b2,t1,t2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5)
     red1 = problem["reduction1"]
-    red1 = problem["reduction2"]
+    red2 = problem["reduction2"]
     exo1 = problem["exoneration1"]
     exo2 = problem["exoneration2"]
     
