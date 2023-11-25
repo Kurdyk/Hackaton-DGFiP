@@ -176,6 +176,25 @@ def optimizea():
 @app.route("/pareto", methods=["POST"])
 def pareto():
     import pareto
+    import utils
+    """
+    APPROX 
+    Expects a json with the following structure:
+    {
+        "postalCode1" : "string",
+        "postalCode2" : "string",
+        "exoneration1" : int, (%)
+        "exoneration2" : int, (%)
+        "reduction1" : int,
+        "reduction2" : int,
+        "activity" : "string", 
+    } sends back a json with the following structure:
+    
+    solution = {
+        "dict_res" : dict,
+    }
+    """
+    
     json = request.get_json()
     try:
         problem = utils.parse_json(json)
