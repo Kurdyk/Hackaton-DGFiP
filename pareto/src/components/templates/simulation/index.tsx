@@ -8,7 +8,7 @@ import ActivitySelector from 'components/atoms/activitySelector'
 
 const SimulationPage: React.FC<SimulationProps> = ({commune1, commune2}) => {
 
-    const {sliders1, sliders2, activity, setActivity} = useData(commune1, commune2);
+    const {sliders1, sliders2, activity, setActivity, arrows, simulateModification} = useData(commune1, commune2);
   
     return (
         <Box id="SimulationPageWrapper">
@@ -19,12 +19,12 @@ const SimulationPage: React.FC<SimulationProps> = ({commune1, commune2}) => {
             <Box id="SimulationWrapper">
                 <CityInformation commune={commune1} sliders={sliders1}/>
                 <Box id="SimulationMapWrapper">
-                    <SimulationMap commune1={commune1} commune2={commune2}/>
+                    <SimulationMap commune1={commune1} commune2={commune2} arrows={arrows}/>
                 </Box>
                 <CityInformation commune={commune2} sliders={sliders2}/>
             </Box>
             <Box id="ActionButtonsWrapper">
-                <Button className="Button" variant="outlined" onClick={() => {}}>Tester la solution</Button>
+                <Button className="Button" variant="outlined" onClick={() => simulateModification()}>Tester la solution</Button>
                 <Button className="Button" variant="outlined" onClick={() => {}}>Optimiser</Button>
                 <Button className="Button" variant="outlined" onClick={() => {}}>Export</Button>
             </Box>

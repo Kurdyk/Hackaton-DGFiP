@@ -1,7 +1,8 @@
+import { MapArrowProps } from "components/atoms/mapArrow/type";
 import React from "react";
 import { Commune } from "shared/type";
 
-export const  useData = (commune1 : Commune, commune2 : Commune) => {
+export const  useData = (commune1 : Commune, commune2 : Commune, arrows : MapArrowProps[]) => {
 
     const [geoJson1, setGeoJson1] = React.useState<any>();
     const [geoJson2, setGeoJson2] = React.useState<any>();
@@ -38,5 +39,25 @@ export const  useData = (commune1 : Commune, commune2 : Commune) => {
 
     const center = find_middle(geoJson1, geoJson2);
 
-    return {geoJson1, geoJson2, center, ready};
+    const convert_arrows = (arrows : MapArrowProps[]) => {
+            
+            if (!ready) return [] as MapArrowProps[];
+
+            const center1 = geoJson1.centre.coordinates;
+            const center2 = geoJson2.centre.coordinates;
+    
+            return arrows.map(arrow => {
+                const from = [center1.from[1], center1.from[0]] as [number, number];
+                const to = [center2.to[1], center2.to[0]] as [number, number];
+                return {
+                    ...arrow,
+                    from,
+                    to
+                }
+            });
+    }
+
+    const diplayableArrows = convert_arrows(arrows);
+
+    return {geoJson1, geoJson2, center, ready, diplayableArrows};
 }

@@ -3,12 +3,13 @@ import { Commune } from "shared/type";
 import { Map, GeoJson, GeoJsonFeature } from "pigeon-maps";
 import { useData } from "./hook";
 import { SimulationMapProps } from "./type";
+import MapArrow from "components/atoms/mapArrow";
+import { MapArrowProps } from "components/atoms/mapArrow/type";
 
-const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id}) => {
+const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, arrows}) => {
 
-    const {geoJson1, geoJson2, center, ready} = useData(commune1, commune2);
+    const {geoJson1, geoJson2, center, ready, diplayableArrows} = useData(commune1, commune2, arrows!);
 
-    console.log(center, ready);
 
     if (!ready) return (<></>);
 
@@ -51,6 +52,13 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id}) 
                 }}>
                 <GeoJsonFeature feature={geoJson2Feature} />
             </GeoJson>
+            {
+                diplayableArrows.map((arrow : MapArrowProps) => {
+                    return (
+                        <MapArrow key={arrow.id} id={arrow.id} from={arrow.from} to={arrow.to} color={arrow.color} bend={arrow.bend} name={arrow.name}/>
+                    )
+                }
+            )}
                 
         </Map>
     )

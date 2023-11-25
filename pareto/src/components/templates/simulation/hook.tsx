@@ -1,5 +1,6 @@
 import { Commune } from "shared/type";
 import { useState } from "react";
+import { MapArrowProps } from "components/atoms/mapArrow/type";
 
 export const useData = (commune1: Commune, commune2 : Commune) => {
 
@@ -9,6 +10,8 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
     const [exoneration2, setExoneration2] = useState<number>(0);
     const [reduction1, setReduction1] = useState<number>(0);
     const [reduction2, setReduction2] = useState<number>(0);
+
+    const [arrows, setArrows] = useState<MapArrowProps[]>([]);
 
     const sliders1 = [
         {   
@@ -69,6 +72,29 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
         return data;
     }
 
+    const simulateModification = async () => {
+        const data = await fetch_test();
+        const oneToTwo = data["moving1to2"];
+        const twoToOne = data["moving2to1"];
+        const arrows = [
+            {
+                from: [0, 0] as [number, number], // for now
+                to: [0, 0]  as [number, number], // for now
+                name: `${oneToTwo}`,
+                color: "red",
+                bend: 'up'
+            },
+            {
+                from: [0, 0] as [number, number], // for now
+                to: [0, 0] as [number, number], // for now
+                name: `${twoToOne}`,
+                color: "blue",
+                bend: 'down'
+            }
+        ];
+        setArrows(arrows);
+    }
+
     
-    return {sliders1, sliders2, activity, setActivity};
+    return {sliders1, sliders2, activity, setActivity, arrows, simulateModification};
 }
