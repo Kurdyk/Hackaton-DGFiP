@@ -119,6 +119,21 @@ def pareto():
         return jsonify("Invalid problem"), 400
     return make_response(jsonify(pareto), 200)
 
+@app.route("/optimiser", methods=["POST"])
+def optimiser():
+    # TODO
+    json = request.get_json()
+    try:
+        problem = utils.parse_json(json)
+    except ValueError:
+        return jsonify("Bad request"), 400
+    try:
+        pareto = utils.pareto(problem)
+    except ValueError:
+        return jsonify("Invalid problem"), 400
+    return make_response(jsonify(pareto), 200)
+
+
 
 
 if __name__ == "__main__":

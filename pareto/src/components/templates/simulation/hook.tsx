@@ -1,5 +1,6 @@
 import { Commune } from "shared/type";
 import { useState } from "react";
+import { CSVLink } from "react-csv";
 
 export const useData = (commune1: Commune, commune2 : Commune) => {
 
@@ -51,6 +52,31 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
         }
     ]
 
+    const headers = [
+        { label: "Commune", key: "commune" },
+        { label: "Activity", key: "activity" },
+        { label: "Exonération", key: "exoneration" },
+      ];
+
+      const data = [
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+        { commune: "Houilles", activity: "4673A", exoneration: "30%" },
+      ];
+
+      const csvReport = {
+        data: data,
+        headers: headers,
+        filename: 'Clue_Mediator_Report.csv'
+      };
+
+
     const fetch_test = async () => {
 
         if (!commune1 || !commune2 || !activity) return;
@@ -69,6 +95,27 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
                 "exoneration2": exoneration2 / 100.0,
                 "reduction1": reduction1,
                 "reduction2": reduction2
+            })
+        };
+        const response = await fetch(url, request);
+        const data = await response.json();
+        console.log(data);
+        return data;
+    }
+
+    const fetch_opti = async () => {
+
+        if (!commune1 || !commune2 || !activity) return;
+
+        console.log(commune1, commune2, activity, exoneration1, exoneration2, reduction1, reduction2)
+
+        const url = "http://localhost:4444/optimisation";
+        const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "commune1": commune1,
+                "commune2": commune2,
             })
         };
         const response = await fetch(url, request);
@@ -98,8 +145,34 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
 
     }
 
+   
+
+    const optimisation = async () => {
+        const data = await fetch_opti();
+        if (!data) return;
+        const oneToTwo = data["moving1to2"];
+        const twoToOne = data["moving2to1"];
+        
+        if (oneToTwo === 0 && twoToOne === 0) {
+            setLoser(undefined);
+            setResult(`Aucun mouvement d'entreprises`);
+        } else if (oneToTwo > twoToOne) {
+            setLoser(1);
+            setResult(`${commune1.name} perd ${oneToTwo} entreprises au profit de ${commune2.name}`);
+        } else {
+            setResult(`${commune2.name} perd ${twoToOne} entreprises au profit de ${commune1.name}`);
+            setLoser(2);
+        }
+
+        setDone(true);
+
+    }
 
 
     
-    return {sliders1, sliders2, activity, setActivity, loser, simulateModification, done, result};
+
+
+
+    
+    return {sliders1, sliders2, activity, setActivity, loser, simulateModification, done, result, optimisation, csvReport};
 }
