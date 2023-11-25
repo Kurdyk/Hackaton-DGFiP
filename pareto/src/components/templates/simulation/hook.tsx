@@ -91,10 +91,10 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
         } else if (oneToTwo > twoToOne) {
             setLoser(1);
             setResult(`${commune1.name} perd ${oneToTwo} entreprises au profit de ${commune2.name}. 
-            Nombres d'entreprises finales : ${n1} pour ${commune1} et ${n2} pour ${commune2}`);
+            Nombres d'entreprises finales : ${n1} pour ${commune1.name} et ${n2} pour ${commune2.name}`);
         } else {
             setResult(`${commune2.name} perd ${twoToOne} entreprises au profit de ${commune1.name}.
-            Nombres d'entreprises finales : ${n1} pour ${commune1} et ${n2} et pour ${commune2}`);
+            Nombres d'entreprises finales : ${n1} pour ${commune1.name} et ${n2} et pour ${commune2.name}`);
             setLoser(2);
         }
 
