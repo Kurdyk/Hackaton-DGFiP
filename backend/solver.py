@@ -112,6 +112,65 @@ def evaluate():
         return jsonify("Invalid problem"), 400
     return make_response(jsonify(evaluation), 200)
 
+@app.route("/optimizea", methods=["POST"])
+def optimizea():
+    """
+    APPROX 
+    Expects a json with the following structure:
+    {
+        "postalCode1" : "string",
+        "postalCode2" : "string",
+        "exoneration1" : int, (%)
+        "exoneration2" : int, (%)
+        "reduction1" : int,
+        "reduction2" : int,
+        "activity" : "string", 
+    } sends back a json with the following structure:
+    
+    solution = {
+        "b1opt" : int,
+        "b2opt" : int,
+    }
+    """
+    problem = request.get_json()
+    print(problem)
+
+    DFVille1 = utils.DFVille1
+    DFVille2 = utils.DFVille2
+    
+
+    # Liste_Activites = utils.Activites_communes(DFVille1,DFVille2)
+    Liste_Activites = ['4673A','9602A','5610C','6190Z','4321A','7022Z','6420Z','4399C','86901','4789Z','4520A','4511Z','4799A','7010Z','99990']
+    Li1, Li2 = utils.repartition_ent(DFVille1,DFVille2)
+
+    index = -1
+    for i in range(len(Liste_Activites)):
+        if Liste_Activites[i] == problem['activity']:
+            index = i
+            break
+
+    if index == -1:
+        return jsonify("Invalid activity"), 400
+
+    [b1,b2] = utils.bases_initiales(Liste_Activites, DFVille1, DFVille2)[index]
+    
+    
+    solution = {
+        "b1opt" : 0,
+        "mb2opt" : 0,
+    }
+
+    t1 = int(DFVille1['TXCNU0'].unique()[0])
+    t2 = int(DFVille2['TXCNU0'].unique()[0])
+
+    b1opt,b2opt = utils.bases_optimales(type_ent,b1,t1,b2,t2,Li1,Li2,prop = 0.5,eps = 0.15)
+
+    solution["b1opt"] = max(n1i-n1,0)
+    solution["b2opt"] = max(n2i-n2,0)
+
+    return make_response(jsonify(solution), 200)
+
+
 @app.route("/pareto", methods=["POST"])
 def pareto():
     import pareto
