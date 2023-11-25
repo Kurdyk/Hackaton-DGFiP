@@ -190,7 +190,7 @@ def Activites_communes(DFVille1,DFVille2):
     return Liste
 
 def bases_initiales(Types_Activites, DFVille1, DFVille2):
-
+## Parfois un type d'entreprise n'est pas encore présent dans la commune et aucune base de référence n'est disponible, on complète ces lacunes ici
     bases_init = []
     L1,L2 = repartition_ent(DFVille1,DFVille2)
 
@@ -209,6 +209,22 @@ def bases_initiales(Types_Activites, DFVille1, DFVille2):
         bases_init.append([b1,b2])
 
     return bases_init
+
+def bases_optimales_toutes_activites(Type_Activites,DFVille1,DFVille2,t1,t2,prop = 0.5,eps = 0.15):
+## L'ALGORITHME qui permet d'obtenir les bases à adopter par la commune 1 pour équilibrer les répartitions d'entreprises entre les 2 communes Ville1 et Ville2, pour les types d'activités de 'Type_Activites' !!!
+    L = []
+    base_init = bases_initiales(Type_Activites,DFVille1,DFVille2)
+    L1,L2 = repartition_ent(DFVille1,DFVille2)
+
+    for i in range(len(Type_Activites)-1):
+        b1 = base_init[i][0]
+        b2 = base_init[i][1]
+
+        type_ent = Type_Activites[i]
+        
+        L.append(bases_optimales(type_ent,b1,t1,b2,t2,L1,L2,prop,eps))
+
+    return L
 
 #--------------------------------------------------------------#
 #  Fonctions en rapport avec l'optimisation, et fonctions obj  #
