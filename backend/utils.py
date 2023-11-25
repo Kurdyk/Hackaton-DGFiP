@@ -34,12 +34,36 @@ DFC1f = pd.concat([DFC1[['CNAC3','CTCN','NCCO']].iloc[0:1], DFC1[['CNAC3','CTCN'
 # A1 : Taux CFE commune
 DFA1f = DFA1[['TXCNU0','CTCN','LTCN']]
 
+
 merged_df = pd.merge(DFP2f, DFP1f, on=['NCCO','CTCN'], how='inner')
 merged_df = pd.merge(merged_df, DFC1f, on=['NCCO','CTCN'], how='inner')
 merged_df = pd.merge(merged_df, DFA1f, on=['CTCN'], how='left')
 merged_df = merged_df.dropna()
 
 merged_df[['CTCN','LTCN','TXCNU0','NCCO','CNAC3','MBBS0','MBBSR', 'MNTPXC', 'MOETA2', 'MOETR2','CNEX01', 'CNEX02', 'MOBS20']]
+
+
+###MODIF
+# P2 : Base brute, réduction, montant rce
+DFP2f = pd.concat([DFP2[['MBBS0','MOETA2','MOETR2','CTCN','NCCO']].iloc[0:1],DFP2[['MBBS0','MOETA2','MOETR2','CTCN','NCCO']].iloc[8:]])
+
+# P1 : Base après réduction, base exonérée cfe commune, première exonération, deuxième exonération, base taxable commune
+DFP1f = pd.concat([DFP1[['MBBSR', 'MNTPXC', 'CNEX01', 'CNEX02','MOBS20','CTCN','NCCO']].iloc[0:1],DFP1[['MBBSR', 'MNTPXC', 'CNEX01', 'CNEX02','MOBS20','CTCN','NCCO']].iloc[8:]])
+
+# C1 : Nature de l'activité
+DFC1f = pd.concat([DFC1[['CNAC3','CTCN','NCCO','MNBSMA','BX011']].iloc[0:1], DFC1[['CNAC3','CTCN','NCCO','MNBSMA','BX011']].iloc[8:]])
+
+# A1 : Taux CFE commune
+DFA1f = DFA1[['TXCNU0','CTCN','LTCN', 'MBTP01','MBTP02','MBTP03', 'MBTP04','MBTP05','MBTP06', 'MBTP07','MBTP08','MBTP09', 'MBTP10','MBTP11','MBTP12', 'MBTP13','MBTP14','MBTP15', 'MBTP16','MBTP17','MBTP18', 'MBTP19','MBTP20','MBTP21', 'MBTP22','MBTP23']]
+
+merged_df = pd.merge(DFP2f, DFP1f, on=['NCCO','CTCN'], how='inner')
+merged_df = pd.merge(merged_df, DFC1f, on=['NCCO','CTCN'], how='inner')
+merged_df = pd.merge(merged_df, DFA1f, on=['CTCN'], how='left')
+merged_df = merged_df.dropna()
+
+merged_df[['CTCN','LTCN','TXCNU0','NCCO','CNAC3','MBBS0','MBBSR', 'MNTPXC', 'MOETA2', 'MOETR2','CNEX01', 'CNEX02', 'MOBS20','MNBSMA','BX011','MBTP01','MBTP02','MBTP03', 'MBTP04','MBTP05','MBTP06', 'MBTP07','MBTP08','MBTP09', 'MBTP10','MBTP11','MBTP12', 'MBTP13','MBTP14','MBTP15', 'MBTP16','MBTP17','MBTP18', 'MBTP19','MBTP20','MBTP21', 'MBTP22','MBTP23']]
+
+###
 
 DFVille1 = merged_df[merged_df['CTCN'] == n_ville_1]
 DFVille2 = merged_df[merged_df['CTCN'] == n_ville_2]
