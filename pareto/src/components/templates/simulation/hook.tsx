@@ -98,6 +98,34 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
 
     }
 
+    const downloadJsonFile = () => {
+        // Your JSON data
+        const jsonData = {
+            commune1: commune1,
+            commune2: commune2,
+            activity: activity,
+            exoneration1: exoneration1 / 100.0,
+            exoneration2: exoneration2 / 100.0,
+            reduction1: reduction1,
+            reduction2: reduction2,
+            result: result
+        };
+      
+            // Convert JSON data to a Blob
+            const jsonBlob = new Blob([JSON.stringify(jsonData)], { type: 'application/json' });
+        
+            // Create a download link
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(jsonBlob);
+            a.download = 'export.json';
+        
+            // Append the link to the body, trigger the click event, and remove the link
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+      
+
     
-    return {sliders1, sliders2, activity, setActivity, loser, simulateModification, done, result};
+    return {sliders1, sliders2, activity, setActivity, loser, simulateModification, done, result, downloadJsonFile};
 }
