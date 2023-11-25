@@ -142,6 +142,38 @@ def departs_successifs(type_ent,Li1,Li2,b1,b2,t1,t2, seuil=0.05, seuil2=0.15, se
                 Lf2.append(ent)  
     return Lf1,Lf2
 
+def bases_type_ville(type_ent,DFVille1,DFVille2):
+    b1 = DFVille1[DFVille1['CNAC3']==type_ent]['MBBSR'].unique()[0]
+    b2 = DFVille2[DFVille2['CNAC3']==type_ent]['MBBSR'].unique()[0]
+
+
+def bases_optimales(type_ent,b1,t1,b2,t2,Li1,Li2,prop = 0.5,eps = 0.15):
+
+    #On décide de ne jouer que sur la commune 1
+
+    iter = 0
+    b1opt = b1
+    b2opt = b2
+
+    L1,L2 = departs_successifs(type_ent,Li1,Li2,b1opt,b2opt,t1,t2)
+    n1 = nb_ent_type(L1,type_ent)
+    n2 = nb_ent_type(L2,type_ent)
+
+    while (n1/(n1+n2)<prop-eps or n1/(n1+n2)>prop+eps) and iter<1000:
+        L1,L2 = departs_successifs(type_ent,L1,L2,b1opt,b2opt,t1,t2)
+
+        n1 = nb_ent_type(L1,type_ent)
+        n2 = nb_ent_type(L2,type_ent)
+        iter+=1
+
+        if b1opt*t1 < b2opt*t2:
+            b1opt+=100
+        else :
+            b1opt-=100
+
+    return b1opt,b2opt
+
+
 
 #--------------------------------------------------------------#
 #  Fonctions en rapport avec l'optimisation, et fonctions obj  #
