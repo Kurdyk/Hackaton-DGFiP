@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import CityInformation from 'components/molecules/cityInformation'
 import React from 'react'
 import { SimulationProps } from './type'
@@ -8,18 +8,19 @@ import ActivitySelector from 'components/atoms/activitySelector'
 
 const SimulationPage: React.FC<SimulationProps> = ({commune1, commune2}) => {
 
-    const {sliders1, sliders2, activity, setActivity, arrows, simulateModification} = useData(commune1, commune2);
+    const {sliders1, sliders2, activity, setActivity, loser, simulateModification, result} = useData(commune1, commune2);
   
     return (
         <Box id="SimulationPageWrapper">
             <Box id="activitySelection">
                 <Typography variant="h5">Code activité</Typography>
                 <ActivitySelector activity={activity} setActivity={setActivity} />
+                <Typography variant="h5">{result}</Typography>
             </Box>
             <Box id="SimulationWrapper">
                 <CityInformation commune={commune1} sliders={sliders1}/>
                 <Box id="SimulationMapWrapper">
-                    <SimulationMap commune1={commune1} commune2={commune2} arrows={arrows}/>
+                    <SimulationMap commune1={commune1} commune2={commune2} loser={loser}/>
                 </Box>
                 <CityInformation commune={commune2} sliders={sliders2}/>
             </Box>

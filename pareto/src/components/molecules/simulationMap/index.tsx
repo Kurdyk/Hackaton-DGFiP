@@ -1,18 +1,27 @@
 import React from "react";
-import { Commune } from "shared/type";
 import { Map, GeoJson, GeoJsonFeature } from "pigeon-maps";
 import { useData } from "./hook";
 import { SimulationMapProps } from "./type";
-import MapArrow from "components/atoms/mapArrow";
-import { MapArrowProps } from "components/atoms/mapArrow/type";
 
-const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, arrows}) => {
+const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, loser}) => {
 
-    const {geoJson1, geoJson2, center, ready, diplayableArrows} = useData(commune1, commune2, arrows!);
+    const {geoJson1, geoJson2, center, ready} = useData(commune1, commune2);
 
+    const [fill1, setFill1] = React.useState<string>("#ccffff");
+    const [fill2, setFill2] = React.useState<string>("#ffcccc");
+
+    React.useEffect(() => {
+        if (!loser) return;
+        if (loser === 1) {
+            setFill1("red")
+            setFill2("green")
+        } else {
+            setFill2("red")
+            setFill1("green")
+        }
+    }, [loser]);
 
     if (!ready) return (<></>);
-
 
     // cast as GeoJsonFeature
     const geoJson1Feature = {
@@ -31,11 +40,12 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, a
         },
     };
 
+
     return (       
         <Map boxClassname="SimulationMap" defaultCenter={[center[1], center[0]]} defaultZoom={13} mouseEvents={false} touchEvents={false}>
             <GeoJson
                 svgAttributes={{
-                    fill: "#ccffff",
+                    fill: fill1,
                     strokeWidth: "1",
                     opacity: "0.5",
                     stroke: "blue",
@@ -44,7 +54,7 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, a
                 <GeoJsonFeature feature={geoJson1Feature} />
             </GeoJson>
             <GeoJson svgAttributes={{
-                fill: "#ffcccc",
+                fill: fill2,
                 strokeWidth: "1",
                 opacity: "0.5",
                 stroke: "red",
@@ -52,14 +62,6 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, a
                 }}>
                 <GeoJsonFeature feature={geoJson2Feature} />
             </GeoJson>
-            {
-                diplayableArrows.map((arrow : MapArrowProps) => {
-                    return (
-                        <MapArrow key={arrow.id} id={arrow.id} from={arrow.from} to={arrow.to} color={arrow.color} bend={arrow.bend} name={arrow.name}/>
-                    )
-                }
-            )}
-                
         </Map>
     )
 }

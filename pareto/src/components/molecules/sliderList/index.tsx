@@ -10,9 +10,9 @@ const SliderList : React.FC<SliderListProps> = ({sliders}) => {
 
     return (
         <Box className="SliderList">
-            {leviers.map(({label, value, setValue, min, max, step}) => {
+            {leviers.map(({label, value, setValue, min, max, step}, index) => {
                 return (
-                    <Box>
+                    <Box key={index}>
                         <Typography variant="h6">{label}</Typography>
                             <ControlledSlider 
                                 label={label}
