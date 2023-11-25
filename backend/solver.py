@@ -36,12 +36,42 @@ def solve():
         "reduction2" : int,
         "activity" : "string", 
     } sends back a json with the following structure:
-    {
+    
+    solution = {
         "moving1to2" : int,
         "moving2to1" : int,
     }
     """
-    # TODO
+    DFVille1 = utils.DFVille1
+    DFVille2 = utils.DFVille2
+    
+
+    Liste_Activites = utils.Activites_communes(DFVille1,DFVille2)
+    Li1, Li2 = utils.repartition_ent(DFVille1,DFVille2)
+
+    b1,b2 = utils.bases_initiales(Liste_Activites, DFVille1, DFVille2)
+
+    b1 = (b1-problem["reduction1"])(1-problem['exoneration1'])
+    b2 = (b2-problem["reduction2"])(1-problem['exoneration2'])
+
+
+    t1 = int(DFVille1['TXCNU0'].unique()[0])
+    t2 = int(DFVille2['TXCNU0'].unique()[0])
+    
+    activity = problem['activity']
+
+    L1,L2 = utils.departs_successifs(activity,Li1,Li2,b1,b2,t1,t2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5)
+
+    n1i = utils.nb_ent_type(Li1,activity)
+    n2i = utils.nb_ent_type(Li2,activity)
+
+    n1 = utils.nb_ent_type(L1,activity)
+    n2 = utils.nb_ent_type(L2,activity)
+
+    solution["moving1to2"] = max(n1i-n1,0)
+    solution["moving2to1"] = max(n2i-n2,0)
+
+
     json = request.get_json()
     try:
         problem = utils.parse_json(json)
