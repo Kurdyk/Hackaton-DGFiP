@@ -98,8 +98,6 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
 
     }
 
-
-
     
     return {sliders1, sliders2, activity, setActivity, loser, simulateModification, done, result};
 }
