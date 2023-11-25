@@ -12,6 +12,7 @@ import numpy as np
 n_ville_1 = '154'
 n_ville_2 = '166'
 
+
 ### CONSTANTES IMMUABLES COUCOU ###
 #-----------------------------------
 
@@ -95,6 +96,8 @@ def repartition_ent(Tf1,Tf2):
         type_ent = Tf2[Tf2['NCCO']==ent]['CNAC3'].unique()[0]
         L2.append([ent,type_ent])
     return L1,L2
+
+L1,L2 = repartition_ent(DFVille1, DFVille2)
 
 def nb_ent_type(Rep,type_ent):
 ## Nombre d'entreprises d'un type type_ent dans une ville dont les entreprises installées sont listées dans Rep
