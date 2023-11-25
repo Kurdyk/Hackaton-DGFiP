@@ -243,11 +243,7 @@ def base_brute_CA(ent,DFVille,ville1,ville2, DFA1f):
 
     return b1,b2
 
-def departs_successifs_CA(type_ent,Li1,Li2,t1,t2,DFVille1, DFVille2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5):
-
-## Meme chose que départ successif mais tient compte du CA, prend des arguments différents de la fonction précédente, attention !
-## Un appel type se présente sous la forme : 
-## departs_successifs('9329Z',L1,L2,2572,2572,DFGond,DFLisle)
+def departs_successifs_CA(type_ent,Li1,Li2,t1,t2,DFVille1, DFVille2,red1,red2,exo1,exo2,  seuil=0.05, seuil2=0.15, seuil_concu = 0.5):
 
     dict_bases = {}
     
@@ -270,6 +266,9 @@ def departs_successifs_CA(type_ent,Li1,Li2,t1,t2,DFVille1, DFVille2, seuil=0.05,
         if ent[1]==type_ent:
             b1 = int(dict_bases[ent[0]][0])
             b2 = int(dict_bases[ent[0]][1])
+
+            b1 = min((b1-red1) * (1-exo1), b1-red1)
+            b2 = min((b2-red2) * (1-exo2), b2-red2)
 
             if depart(b1,b2,t1,t2, n1, n2,seuil, seuil2, seuil_concu):
                 Lf2.append(ent)
