@@ -223,6 +223,63 @@ def bases_optimales_toutes_activites(Type_Activites,DFVille1,DFVille2,t1,t2,prop
 
     return L
 
+def base_brute_CA(ent,DFVille,ville1,ville2, DFA1f):
+    
+    rev = DFVille[DFVille['NCCO']==ent]['BX011']
+    #print(rev)
+    try:
+        code = dict[rev]
+    except TypeError:
+        code = 'MBTP01'
+    b1 = DFA1f[DFA1f['CTCN']==ville1][code].unique()[0]
+    b2 = DFA1f[DFA1f['CTCN']==ville2][code].unique()[0]
+
+    return b1,b2
+
+def departs_successifs_CA(type_ent,Li1,Li2,t1,t2,DFVille1, DFVille2, seuil=0.05, seuil2=0.15, seuil_concu = 0.5):
+
+## Meme chose que départ successif mais tient compte du CA, prend des arguments différents de la fonction précédente, attention !
+## Un appel type se présente sous la forme : 
+## departs_successifs('9329Z',L1,L2,2572,2572,DFGond,DFLisle)
+
+    dict_bases = {}
+    
+    for ent in DFVille1['NCCO']:
+        b1,b2 = base_brute_CA(ent,DFVille1,'154','166',DFA1f)
+        dict_bases[ent] = (b1,b2)
+
+    for ent in DFVille2['NCCO']:
+        b1,b2 = b1,b2 = base_brute_CA(ent,DFVille2,'154','166',DFA1f)
+        dict_bases[ent] = (b1,b2)
+
+    n1 = nb_ent_type(Li1,type_ent)
+    n2 = nb_ent_type(Li2,type_ent)
+    
+    Lf1 = []
+    Lf2 = []
+
+
+    for ent in Li1 :
+        if ent[1]==type_ent:
+            b1 = int(dict_bases[ent[0]][0])
+            b2 = int(dict_bases[ent[0]][1])
+
+            if depart(b1,b2,t1,t2, n1, n2,seuil, seuil2, seuil_concu):
+                Lf2.append(ent)
+                n2+=1
+                n1-=1
+            else:
+                Lf1.append(ent)
+    for ent in Li2 :
+        if ent[1]==type_ent:
+            if depart(b2,b1,t2,t1, n2, n1,seuil, seuil2, seuil_concu):
+                Lf1.append(ent)
+                n1+=1
+                n2-=1
+            else:
+                Lf2.append(ent)  
+    return Lf1,Lf2
+
 #--------------------------------------------------------------#
 #  Fonctions en rapport avec l'optimisation, et fonctions obj  #
 #--------------------------------------------------------------#
