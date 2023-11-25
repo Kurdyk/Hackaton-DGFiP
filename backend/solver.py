@@ -163,7 +163,8 @@ def optimizea():
     t1 = int(DFVille1['TXCNU0'].unique()[0])
     t2 = int(DFVille2['TXCNU0'].unique()[0])
 
-    b1opt,b2opt = utils.bases_optimales(type_ent,b1,t1,b2,t2,Li1,Li2,prop = 0.5,eps = 0.15)
+    b1opt,b2opt = utils.bases_optimales(activity,b1,t1,b2,t2,Li1,Li2,prop = 0.5,eps = 0.15)
+
 
     solution["b1opt"] = max(n1i-n1,0)
     solution["b2opt"] = max(n2i-n2,0)
