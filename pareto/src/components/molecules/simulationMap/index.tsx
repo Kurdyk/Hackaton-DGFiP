@@ -11,7 +11,11 @@ const SimulationMap : React.FC<SimulationMapProps> = ({commune1, commune2, id, l
     const [fill2, setFill2] = React.useState<string>("#ffcccc");
 
     React.useEffect(() => {
-        if (!loser) return;
+        if (!loser) {
+            setFill1("#ccffff");
+            setFill2("#ffcccc");
+            return;
+        }
         if (loser === 1) {
             setFill1("red")
             setFill2("green")

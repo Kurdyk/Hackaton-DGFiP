@@ -40,10 +40,6 @@ def solve():
     solution = {
         "moving1to2" : int,
         "moving2to1" : int,
-        "base1Init" : int,
-        "base2Init" : int,
-        "base1Final" : int,
-        "base2Final" : int,
     }
     """
     problem = request.get_json()
@@ -93,6 +89,8 @@ def solve():
     solution = {
         "moving1to2" : 0,
         "moving2to1" : 0,
+        "finalNb1" : n1,
+        "finalNb2" : n2,
     }
 
     solution["moving1to2"] = max(n1i-n1,0)
