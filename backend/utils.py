@@ -14,12 +14,11 @@ n_ville_2 = '166'
 -----------------------------------
 
 DFPOP = pd.DataFrame(dataPop.json()) [['nom','population']]
-DFREI = pd.read_csv('/home/dune/Téléchargements/Hackathon/REI_2022.csv')
 
-DFP2 = pd.read_csv('/home/dune/Téléchargements/Hackathon/Ressources_HackathonDGFiP_novembre2023/GF-2C/160_CHARENTE_ART-P2.csv',header = 1, delimiter=';')
-DFP1 = pd.read_csv('/home/dune/Téléchargements/Hackathon/Ressources_HackathonDGFiP_novembre2023/GF-2C/160_CHARENTE_ART-P1.csv',header = 1, delimiter=';',encoding='latin-1')
-DFC1 = pd.read_csv('/home/dune/Téléchargements/Hackathon/Ressources_HackathonDGFiP_novembre2023/GF-2C/160_CHARENTE_ART-C1.csv',header = 1, delimiter=';',encoding='latin-1')
-DFA1 = pd.read_csv('/home/dune/Téléchargements/Hackathon/Ressources_HackathonDGFiP_novembre2023/GF-2C/160_CHARENTE_ART-A1.csv',header = 1, delimiter=',',encoding='latin-1')
+DFP2 = pd.read_csv('../../160_CHARENTE_ART-P2.csv',header = 1, delimiter=';')
+DFP1 = pd.read_csv('../../160_CHARENTE_ART-P1.csv',header = 1, delimiter=';',encoding='latin-1')
+DFC1 = pd.read_csv('../../160_CHARENTE_ART-C1.csv',header = 1, delimiter=';',encoding='latin-1')
+DFA1 = pd.read_csv('../../160_CHARENTE_ART-A1.csv',header = 1, delimiter=',',encoding='latin-1')
 
 filtered_columns = [col for col in DFREI.columns if 'CFE' in col]
 filtered_columns.append('Libellé commune')
