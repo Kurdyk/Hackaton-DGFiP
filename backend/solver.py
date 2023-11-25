@@ -82,7 +82,7 @@ def solve():
     exo1 = problem["exoneration1"]
     exo2 = problem["exoneration2"]
     
-    L1,L2 = utils.departs_successifs_CA(activity,Li1,Li2,t1,t2,red1,red2,exo1,exo2, DFVille1,DFVille2,seuil=0.05, seuil2=0.15, seuil_concu = 0.5)
+    L1,L2 = utils.departs_successifs_CA(activity,Li1,Li2,t1,t2,red1,red2,exo1,exo2, DFVille1,DFVille2)
 
     n1i = utils.nb_ent_type(Li1,activity)
     n2i = utils.nb_ent_type(Li2,activity)
