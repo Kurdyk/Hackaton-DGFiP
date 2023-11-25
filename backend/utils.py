@@ -54,7 +54,7 @@ DFVille2 = merged_df[merged_df['CTCN'] == n_ville_2]
 #----------------------------#
 
 def code_to_CP(code):
-
+# A l'aide du code CTCN, renvoie le code postal de la commune correspondante
     nom_ville = DFA1f[DFA1f['CTCN']==code]['LTCN'].unique()[0]
     print(nom_ville)
     nom_ville = nom_ville[0] + nom_ville[1:].lower()
@@ -65,6 +65,11 @@ def code_to_CP(code):
     for ville in rep:
         if '16' in ville['codesPostaux'][0]:
             return ville['codesPostaux'][0]
+
+def exo_commune(DFVille):
+# Renvoie les types d'exonérations actuellement appliquées dans une commune dont l'ensemble des entreprises est donné par DFVille
+    unique_values = DFVille['CNEX01'].unique()
+    return unique_values
 
 #---------------------------------------------------------#
 #  Utilité dans calculs, imports dans d'autres fonctions  #
