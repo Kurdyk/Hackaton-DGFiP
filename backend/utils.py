@@ -1,28 +1,25 @@
 
+import pandas as pd
+import numpy as np
 
 #----------------------------#
 #         Constantes         #
 #----------------------------#
 
 ### CONSTANTES A MODIFIER PAR USR ###
--------------------------------------
+#-------------------------------------
 
 n_ville_1 = '154'
 n_ville_2 = '166'
 
 ### CONSTANTES IMMUABLES COUCOU ###
------------------------------------
+#-----------------------------------
 
-DFPOP = pd.DataFrame(dataPop.json()) [['nom','population']]
+DFP2 = pd.read_csv('./data/160_CHARENTE_ART-P2.csv',header = 1, delimiter=',')
+DFP1 = pd.read_csv('./data/160_CHARENTE_ART-P1.csv',header = 1, delimiter=',',encoding='latin-1')
+DFC1 = pd.read_csv('./data/160_CHARENTE_ART-C1.csv',header = 1, delimiter=',',encoding='latin-1')
+DFA1 = pd.read_csv('./data/160_CHARENTE_ART-A1.csv',header = 0, delimiter=',',encoding='latin-1')
 
-DFP2 = pd.read_csv('../data/160_CHARENTE_ART-P2.csv',header = 1, delimiter=';')
-DFP1 = pd.read_csv('../data/160_CHARENTE_ART-P1.csv',header = 1, delimiter=';',encoding='latin-1')
-DFC1 = pd.read_csv('../data/160_CHARENTE_ART-C1.csv',header = 1, delimiter=';',encoding='latin-1')
-DFA1 = pd.read_csv('../data/160_CHARENTE_ART-A1.csv',header = 1, delimiter=',',encoding='latin-1')
-
-filtered_columns = [col for col in DFREI.columns if 'CFE' in col]
-filtered_columns.append('Libellé commune')
-DFREI = DFREI[filtered_columns]
 
 # P2 : Base brute, réduction, montant rce
 DFP2f = pd.concat([DFP2[['MBBS0','MOETA2','MOETR2','CTCN','NCCO']].iloc[0:1],DFP2[['MBBS0','MOETA2','MOETR2','CTCN','NCCO']].iloc[8:]])
@@ -40,8 +37,6 @@ merged_df = pd.merge(DFP2f, DFP1f, on=['NCCO','CTCN'], how='inner')
 merged_df = pd.merge(merged_df, DFC1f, on=['NCCO','CTCN'], how='inner')
 merged_df = pd.merge(merged_df, DFA1f, on=['CTCN'], how='left')
 merged_df = merged_df.dropna()
-
-colonnes = ['MBBS0', 'MOETA2', 'MOETR2', 'CTCN', 'NCCO', 'MBBSR', 'MNTPXC','CNEX01', 'CNEX02', 'MOBS20', 'CNAC3', 'TXCNT0']
 
 merged_df[['CTCN','LTCN','TXCNU0','NCCO','CNAC3','MBBS0','MBBSR', 'MNTPXC', 'MOETA2', 'MOETR2','CNEX01', 'CNEX02', 'MOBS20']]
 
