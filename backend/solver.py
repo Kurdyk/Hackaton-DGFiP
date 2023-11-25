@@ -157,7 +157,7 @@ def optimizea():
     
     solution = {
         "b1opt" : 0,
-        "mb2opt" : 0,
+        "b2opt" : 0,
     }
 
     t1 = int(DFVille1['TXCNU0'].unique()[0])
