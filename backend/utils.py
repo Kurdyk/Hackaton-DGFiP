@@ -173,7 +173,42 @@ def bases_optimales(type_ent,b1,t1,b2,t2,Li1,Li2,prop = 0.5,eps = 0.15):
 
     return b1opt,b2opt
 
+def Activites_communes(DFVille1,DFVille2):
+## Renvoie les 15 types d'activités d'entreprises avec le plus d'entreprises sur les communes Ville1 et Ville2 cumulées
+    Liste_Type_Activités1 = pd.concat([DFVille1,DFVille2])['CNAC3'].unique()
+    len(Liste_Type_Activités1)
+    L = []
+    for type_ent in Liste_Type_Activités1:
+        L.append([type_ent, nb_ent_type(L1,type_ent)+nb_ent_type(L2,type_ent)])
+    LDF = pd.DataFrame(L)
+    LDF = LDF.sort_values(1)
 
+    Liste = []
+    n = len(LDF)
+    for l in LDF[0][n-15:]:
+        Liste.append(l)
+    return Liste
+
+def bases_initiales(Types_Activites, DFVille1, DFVille2):
+
+    bases_init = []
+    L1,L2 = repartition_ent(DFVille1,DFVille2)
+
+    for type_ent in Types_Activites:
+        n1 = nb_ent_type(L1,type_ent)
+        n2 = nb_ent_type(L2,type_ent)
+
+        if n1 == 0:
+            b1 = 0
+        else:
+            b1 = int(DFVille1[DFVille1['CNAC3']==type_ent]['MBBSR'].unique()[0])
+        if n2 == 0:
+            b2 = 0
+        else:
+            b2 = int(DFVille2[DFVille2['CNAC3']==type_ent]['MBBSR'].unique()[0])
+        bases_init.append([b1,b2])
+
+    return bases_init
 
 #--------------------------------------------------------------#
 #  Fonctions en rapport avec l'optimisation, et fonctions obj  #
