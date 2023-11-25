@@ -47,6 +47,28 @@ export const useData = (commune1: Commune, commune2 : Commune) => {
             step : 100,
         }
     ]
+
+    const fetch_test = async () => {
+        const url = "http://localhost:4444/solve";
+        const request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                "commune1": commune1,
+                "commune2": commune2,
+                "activity": activity,
+                "exoneration1": exoneration1,
+                "exoneration2": exoneration2,
+                "reduction1": reduction1,
+                "reduction2": reduction2
+            })
+        };
+        const response = await fetch(url, request);
+        const data = await response.json();
+        console.log(data);
+        return data;
+    }
+
     
     return {sliders1, sliders2, activity, setActivity};
 }

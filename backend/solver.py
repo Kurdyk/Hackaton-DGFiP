@@ -37,10 +37,6 @@ def solve():
         "activity" : "string", 
     } sends back a json with the following structure:
     {
-        "optExoneration1" : int, (%)
-        "optExoneration2" : int, (%)
-        "optReduction1" : int,
-        "optReduction2" : int,
         "moving1to2" : int,
         "moving2to1" : int,
     }
