@@ -15,10 +15,10 @@ n_ville_2 = '166'
 ### CONSTANTES IMMUABLES COUCOU ###
 #-----------------------------------
 
-DFP2 = pd.read_csv('./data/160_CHARENTE_ART-P2.csv',header = 1, delimiter=',')
-DFP1 = pd.read_csv('./data/160_CHARENTE_ART-P1.csv',header = 1, delimiter=',',encoding='latin-1')
-DFC1 = pd.read_csv('./data/160_CHARENTE_ART-C1.csv',header = 1, delimiter=',',encoding='latin-1')
-DFA1 = pd.read_csv('./data/160_CHARENTE_ART-A1.csv',header = 0, delimiter=',',encoding='latin-1')
+DFP2 = pd.read_csv('./data/160_CHARENTE_ART-P2.csv',header = 1, delimiter=';')
+DFP1 = pd.read_csv('./data/160_CHARENTE_ART-P1.csv',header = 1, delimiter=';',encoding='latin-1')
+DFC1 = pd.read_csv('./data/160_CHARENTE_ART-C1.csv',header = 1, delimiter=';',encoding='latin-1')
+DFA1 = pd.read_csv('./data/160_CHARENTE_ART-A1.csv',header = 1, delimiter=',',encoding='latin-1')
 
 
 # P2 : Base brute, réduction, montant rce
