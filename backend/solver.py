@@ -40,6 +40,10 @@ def solve():
     solution = {
         "moving1to2" : int,
         "moving2to1" : int,
+        "base1Init" : int,
+        "base2Init" : int,
+        "base1Final" : int,
+        "base2Final" : int,
     }
     """
     problem = request.get_json()
@@ -64,9 +68,8 @@ def solve():
 
     [b1,b2] = utils.bases_initiales(Liste_Activites, DFVille1, DFVille2)[index]
 
-    b1 = (b1-problem["reduction1"]) * (1-problem["exoneration1"])
-    b2 = (b2-problem["reduction2"]) * (1-problem["exoneration2"])
-
+    b1 = min((b1-problem["reduction1"]) * (1-problem["exoneration1"]), b1-problem["reduction1"])
+    b2 = min((b2-problem["reduction2"]) * (1-problem["exoneration2"]), b2-problem["reduction2"])
 
     t1 = int(DFVille1['TXCNU0'].unique()[0])
     t2 = int(DFVille2['TXCNU0'].unique()[0])
