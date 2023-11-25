@@ -134,7 +134,8 @@ def optimizea():
     """
     problem = request.get_json()
     print(problem)
-
+    activity = problem['activity']
+    
     DFVille1 = utils.DFVille1
     DFVille2 = utils.DFVille2
     
