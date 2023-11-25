@@ -224,11 +224,18 @@ def bases_optimales_toutes_activites(Type_Activites,DFVille1,DFVille2,t1,t2,prop
     return L
 
 def base_brute_CA(ent,DFVille,ville1,ville2, DFA1f):
-    
+    dict_rev = {'           ' : 'MBTP01',
+        '<= 10 000  ' : 'MBTP01',
+        '<= 32 600  ' : 'MBTP03',
+        '<= 100 000 ' : 'MBTP05',
+        '<= 250 000 ' : 'MBTP07',
+        '<= 500 000 ' : 'MBTP09',
+        '> 500 000  ' : 'MBTP11'
+        }
     rev = DFVille[DFVille['NCCO']==ent]['BX011']
     #print(rev)
     try:
-        code = dict[rev]
+        code = dict_rev[rev]
     except TypeError:
         code = 'MBTP01'
     b1 = DFA1f[DFA1f['CTCN']==ville1][code].unique()[0]
